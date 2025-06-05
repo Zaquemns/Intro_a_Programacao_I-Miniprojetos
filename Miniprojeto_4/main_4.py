@@ -51,7 +51,7 @@ while True:
         os.system("cls" if os.name == "nt" else "clear")
 
     elif menu_investimento == "sair":
-        print("{ITALICO}Finalizando a simulação...{RESET}")
+        print(f"{ITALICO}Finalizando a simulação...{RESET}")
         sleep(1)
         break
 
