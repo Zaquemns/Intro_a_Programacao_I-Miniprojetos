@@ -7,7 +7,7 @@ def simular_mercado(pessoas, empresas, categorias, percentuais):
         simular_empresa(empresa)
 
     for pessoa in pessoas:
-        simular_pessoa(pessoa, empresas, categorias, percentuais)  # <<< aqui é 'pessoa', no singular
+        simular_pessoa(pessoa, empresas, categorias, percentuais) 
 
     mostrar_resultados(pessoas, empresas, categorias)
 
