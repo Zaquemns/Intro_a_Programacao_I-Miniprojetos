@@ -1,7 +1,5 @@
-
 from Miniprojeto_5.dados_5 import categorias, percentuais
-
-from Miniprojeto_5.utilitarios_5 import RESET, BOLD, VERDE, ROXO, AZUL
+from Miniprojeto_5.utilitarios_5 import RESET, BOLD, VERDE, ROXO, AZUL, VERMELHO, AMARELO
 
 def print_pessoas(pessoas):
 
@@ -44,8 +42,8 @@ def print_empresas(empresas):
 
         
         print(
-            f"{e.categoria:<15} {e.nome:<20} {e.produto:<25} {e.margem*100:6.2f}% "
-            f"R${e.custo:8.2f} R${preco:8.2f} R${lucro_total:9.2f} {vendas_grafico:<10}" 
+            f"{e.categoria:<15} {e.nome:<20} {e.produto:<25} {AMARELO}{e.margem*100:6.2f}%{RESET} "
+            f"{VERMELHO}R${e.custo:8.2f}{RESET} {VERDE}R${preco:8.2f}{RESET} {VERDE}R${lucro_total:9.2f}{RESET} {VERDE}{vendas_grafico:<10}{RESET}" 
         )
         
 def mostrar_resultados(pessoas, empresas, categorias):
