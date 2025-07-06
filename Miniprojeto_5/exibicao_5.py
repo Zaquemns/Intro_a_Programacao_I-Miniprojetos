@@ -1,5 +1,5 @@
-from Miniprojeto_5.dados_5 import categorias, percentuais
-from Miniprojeto_5.utilitarios_5 import RESET, BOLD, VERDE, ROXO, AZUL, VERMELHO, AMARELO
+from dados_5 import categorias, percentuais
+from utilitarios_5 import RESET, BOLD, VERDE, ROXO, AZUL, VERMELHO, AMARELO
 
 def print_pessoas(pessoas):
 

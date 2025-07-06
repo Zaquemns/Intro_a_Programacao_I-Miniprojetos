@@ -1,9 +1,9 @@
-from Miniprojeto_5.dados_5 import categorias, percentuais
-from Miniprojeto_5.empresas_5 import empresas
-from Miniprojeto_5.exibicao_5 import print_empresas, print_pessoas
-from Miniprojeto_5.pessoas_5 import pessoas
-from Miniprojeto_5.simulador_5 import simular_mercado 
-from Miniprojeto_5.utilitarios_5 import clear
+from dados_5 import categorias, percentuais
+from empresas_5 import empresas
+from exibicao_5 import print_empresas, print_pessoas
+from pessoas_5 import pessoas
+from simulador_5 import simular_mercado 
+from utilitarios_5 import clear
 
 def main():
     simular = True
