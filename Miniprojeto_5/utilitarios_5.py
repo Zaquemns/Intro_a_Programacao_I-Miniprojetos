@@ -1,4 +1,8 @@
 from os import name, system
+from time import sleep
+
+def espera(segundos):
+    sleep(float(segundos))
 
 def clear():
     system('cls' if name == 'nt' else 'clear')
