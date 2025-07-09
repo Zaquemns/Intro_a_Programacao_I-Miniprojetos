@@ -3,10 +3,10 @@
 import numpy as np
 from config import ESTADO_JOGO
 import interface as ui
-from utilitarios import limpar_tela # Importamos a nova limpar_tela
+from utilitarios import limpar_tela, colorir, tempo_espera # Importa a função de espera
 
+# ... (funções verificar_vitoria e validar_e_processar_jogada não mudam)
 def verificar_vitoria(tabuleiro: np.ndarray, jogador: str, sequencia_vitoria: int) -> bool:
-    """Verifica todas as condições de vitória."""
     linhas, colunas = tabuleiro.shape
     for i in range(linhas):
         for j in range(colunas):
@@ -17,35 +17,26 @@ def verificar_vitoria(tabuleiro: np.ndarray, jogador: str, sequencia_vitoria: in
     return False
 
 def validar_e_processar_jogada(jogada_str: str, tamanho: int):
-    """Valida a string de jogada e a converte para coordenadas."""
     try:
         partes = jogada_str.strip().upper().split()
-        if len(partes) != 2:
-            return None, "Entrada inválida. Use o formato 'Letra Número' (ex: A 0)."
-
+        if len(partes) != 2: return None, "Entrada inválida. Use o formato 'Letra Número' (ex: A 0)."
         letra, num_str = partes
-        if not letra.isalpha() or len(letra) != 1 or not num_str.isdigit():
-            return None, "Formato inválido. Use uma letra seguida de um número."
-
+        if not letra.isalpha() or len(letra) != 1 or not num_str.isdigit(): return None, "Formato inválido. Use uma letra seguida de um número."
         linha = ord(letra) - ord('A')
         coluna = int(num_str)
-
-        if not (0 <= linha < tamanho and 0 <= coluna < tamanho):
-            return None, "Jogada fora do tabuleiro. Tente novamente."
-
+        if not (0 <= linha < tamanho and 0 <= coluna < tamanho): return None, "Jogada fora do tabuleiro. Tente novamente."
         return (linha, coluna), None
     except Exception:
         return None, "Ocorreu um erro inesperado ao processar a jogada."
 
 def executar_partida():
-    """Controla o fluxo de uma partida com um loop de validação limpo."""
+    # ... (início da função não muda)
     tamanho = ESTADO_JOGO['tamanho_tabuleiro']
     sequencia = ESTADO_JOGO['sequencia_vitoria']
     nomes = ESTADO_JOGO['nomes']
     placar = ESTADO_JOGO['placar']
-
     tabuleiro = np.full((tamanho, tamanho), ' ')
-    jogador_atual_simbolo = 'X'
+    jogador_atual_simbolo = ESTADO_JOGO['proximo_a_comecar']
     jogadas_feitas = 0
     total_celulas = tamanho * tamanho
     mensagem_de_erro = None
@@ -55,41 +46,42 @@ def executar_partida():
         ui.criar_e_mostrar_tabuleiro(tabuleiro)
 
         if mensagem_de_erro:
-            print(mensagem_de_erro)
-            print("-" * len(mensagem_de_erro))
+            print(colorir(f"AVISO: {mensagem_de_erro}", "vermelho"))
+            print(colorir("-" * (len(mensagem_de_erro) + 7), "vermelho"))
 
         nome_jogador_atual = nomes[jogador_atual_simbolo]
         jogada_str = ui.obter_jogada(nome_jogador_atual)
-        
         coordenadas, erro = validar_e_processar_jogada(jogada_str, tamanho)
 
         if erro:
             mensagem_de_erro = erro
             continue
-
+        
         linha, coluna = coordenadas
         if tabuleiro[linha, coluna] != ' ':
             mensagem_de_erro = "Posição já ocupada. Tente novamente."
             continue
         
-        # Se chegou aqui, a jogada é válida.
         mensagem_de_erro = None
         tabuleiro[linha, coluna] = jogador_atual_simbolo
         jogadas_feitas += 1
 
-        if verificar_vitoria(tabuleiro, jogador_atual_simbolo, sequencia):
-            limpar_tela()
-            ui.criar_e_mostrar_tabuleiro(tabuleiro)
-            print(f"\n🎉 {nome_jogador_atual} venceu! 🎉")
-            placar[nome_jogador_atual] = placar.get(nome_jogador_atual, 0) + 1
-            ui.esperar_enter()
-            return
+        venceu = verificar_vitoria(tabuleiro, jogador_atual_simbolo, sequencia)
+        empate = jogadas_feitas == total_celulas
 
-        if jogadas_feitas == total_celulas:
+        if venceu or empate:
             limpar_tela()
             ui.criar_e_mostrar_tabuleiro(tabuleiro)
-            print("\n⚖️ O jogo terminou em empate! ⚖️")
-            placar['Empates'] = placar.get('Empates', 0) + 1
+            if venceu:
+                print(colorir(f"\n🎉 {nome_jogador_atual} venceu a partida! 🎉", "verde"))
+                placar[nome_jogador_atual] = placar.get(nome_jogador_atual, 0) + 1
+            else:
+                print(colorir("\n⚖️ A partida terminou em empate! ⚖️", "amarelo"))
+                placar['Empates'] = placar.get('Empates', 0) + 1
+            
+            ESTADO_JOGO['proximo_a_comecar'] = 'O' if ESTADO_JOGO['proximo_a_comecar'] == 'X' else 'X'
+            
+            tempo_espera(0.5) # PAUSA ADICIONADA
             ui.esperar_enter()
             return
 
