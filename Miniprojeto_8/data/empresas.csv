@@ -1,4 +1,4 @@
-Categoria,Nome,Produto,Custo,Qualidade
+categoria,nome,produto,custo,qualidade
 Moradia,República A,"Aluguel, Várzea",300.0,3
 Moradia,República B,"Aluguel, Várzea",300.0,3
 Moradia,CTI Imobiliária,"Aluguel, Centro",1500.0,7
@@ -15,7 +15,7 @@ Saúde,Health Coop,"Plano de Saúde",200.0,2
 Saúde,HapVida,"Plano de Saúde",650.0,5
 Saúde,Bradesco Saúde,"Plano de Saúde",800.0,5
 Saúde,Sulamérica,"Plano de Saúde",850.0,5
-Educação,Escolinha,Mensalidade,100.0,1
-Educação,Mazzarello,Mensalidade,1200.0,6
-Educação,Arco Íris,Mensalidade,1800.0,8
-Educação,Escola do Porto,Mensalidade,5000.0,9
+Educação,Escolinha,"Mensalidade",100.0,1
+Educação,Mazzarello,"Mensalidade",1200.0,6
+Educação,Arco Íris,"Mensalidade",1800.0,8
+Educação,Escola do Porto,"Mensalidade",5000.0,9

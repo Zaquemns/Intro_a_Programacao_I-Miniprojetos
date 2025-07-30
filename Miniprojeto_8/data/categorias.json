@@ -1,0 +1,9 @@
+{
+  "categorias": [
+    {"nome": "Moradia", "percentual": 0.35},
+    {"nome": "Alimentação", "percentual": 0.25},
+    {"nome": "Transporte", "percentual": 0.10},
+    {"nome": "Saúde", "percentual": 0.10},
+    {"nome": "Educação", "percentual": 0.10}
+  ]
+}
